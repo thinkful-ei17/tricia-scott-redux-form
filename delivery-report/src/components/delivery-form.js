@@ -8,6 +8,7 @@ import Input from './input';
 export class DeliveryForm extends React.Component {
   
   onSubmit(values){
+    console.log('values on submit:', values);
     //add API call here
     const URL="https://us-central1-delivery-form-api.cloudfunctions.net/api/report"
     const postData = {
@@ -23,7 +24,7 @@ export class DeliveryForm extends React.Component {
         return res.json();
     })
     .then( res => {   //catches promise from the return res.json
-      return  console.log(this.props.form.delivery.message);
+      console.log('response:', res);
     })
     .catch (err => {  //catches the any errors
     //  return Promise.reject( new SubmissionForm..asmdf.amf)
