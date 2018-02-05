@@ -23,7 +23,7 @@ export class DeliveryForm extends React.Component {
         return res.json();
     })
     .then( res => {   //catches promise from the return res.json
-      return  console.log(this.props.form.delivery.message);
+      return  console.log(res.json());
     })
     .catch (err => {  //catches the any errors
     //  return Promise.reject( new SubmissionForm..asmdf.amf)
