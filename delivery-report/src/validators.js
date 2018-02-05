@@ -1,6 +1,13 @@
-export const required = value => (value ? undefined : 'This field is required');
-export const notEmpty = value => (value.trim() !== '' ? undefined : 'Field cannot be empty');
-export const fiveChars = value => (value.length >= 5 ? undefined : "This field must contain least 5 characters");
-export const isNum = value => (Number.isInteger(parseInt(value)) ? undefined : "A number is required");
 
-// value.spit('').filter(i => parseInt(i).length === value.length)
+//check if field is required
+//check if tracking-num contains a value
+export const required = value => value !== undefined ? undefined : 'Please Enter Valid Number';
+
+//The value is non-empty
+export const nonEmpty = value => value.trim(' ') !== '' ? undefined : 'Please Enter Valid Number';
+
+//The value is be exactly 5 characters long
+export const length = value => (value.length === 5) ? undefined : 'Tracking Number Must be 5 Characters Long';
+
+//Each Character is a number
+export const number = value => value.split('').filter(i => parseInt(i, 10)).length === value.length ? undefined : 'Tracking Number Must Be Numbers';
