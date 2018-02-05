@@ -1,5 +1,27 @@
+html,
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 20px, auto;
+    padding: 20px, auto;
+    font-family: sans-serif;
+}
+
+.delivery-form {
+    padding: 20 px, auto;
+}
+
+input,
+label,
+select,
+textarea {
+    display: block;
+}
+
+input,
+select,
+textarea {
+    margin-bottom: 12px;
+}
+
+label {
+    cursor: default;
 }

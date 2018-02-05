@@ -10,11 +10,11 @@ export class DeliveryForm extends React.Component {
     <div class="delivery-form">
      <h2>Report a problem with your delivery</h2>
       <form>
-        <div>
+        <div class='form-input'>
           <label htmlFor="tracking-num">Tracking number</label>
           <input type="text" name='tracking-num' id='tracking-num'/>
         </div>
-        <div>
+        <div class='form-input'>
           <label htmlFor='delivery-issue-list'>What is your issue?</label>
            <select id="delivery-issue-list">
               <option value="My delivery hasn't arrived">My delivery hasn't arrived</option>
@@ -23,14 +23,12 @@ export class DeliveryForm extends React.Component {
               <option value="Some of my order arrived damaged">Some of my order arrived damaged</option>
               <option value="Other (give details below)">Other (give details below)</option>
             </select>
-          </div>
-          <div>
+            </div>
+          <div class='form-input'>
             <label htmlFor="other-issue">Give more details (optional)</label>
             <textarea id="other-issue" name="other-issue"></textarea>
           </div>
-          <div>
-            <button type="submit">Submit</button> 
-          </div>     
+            <button type="submit">Submit</button>   
         </form>
       </div>
     )
