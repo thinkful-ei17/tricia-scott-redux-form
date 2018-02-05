@@ -1,6 +1,7 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
-
+import {required, nonEmpty, length, number} from '../validators';
+import Input from './input';
 
 
 export class DeliveryForm extends React.Component {
@@ -19,11 +20,19 @@ export class DeliveryForm extends React.Component {
       )}>
         <div className='form-input'>
           <label htmlFor="tracking-num">Tracking number</label>
-          <Field component='input' type="text" name='tracking-num' id='tracking-num'/>
+          <Field 
+            component={Input} 
+            type="text" 
+            name='tracking-num' 
+            id='tracking-num' 
+            validate={[required, nonEmpty, length, number]}/>
         </div>
         <div className='form-input'>
           <label htmlFor='delivery-issue-list'>What is your issue?</label>
-           <Field component='select' id="delivery-issue-list" name='delivery-issue-list'>
+           <Field 
+           component='select'
+           id="delivery-issue-list" 
+           name='delivery-issue-list'>
               <option value="My delivery hasn't arrived">My delivery hasn't arrived</option>
               <option value="The wrong item was deliverd">The wrong item was deliverd</option>
               <option value="Part of my order was missing">Part of my order was missing</option>
