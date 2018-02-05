@@ -24,13 +24,13 @@ export class DeliveryForm extends React.Component {
               <option value="Other (give details below)">Other (give details below)</option>
             </select>
             </div>
-          <div class='form-input'>
-            <label htmlFor="other-issue">Give more details (optional)</label>
-            <textarea id="other-issue" name="other-issue"></textarea>
-          </div>
-            <button type="submit">Submit</button>   
-        </form>
-      </div>
+        <div class='form-input'>
+          <label htmlFor="other-issue">Give more details (optional)</label>
+          <textarea id="other-issue" name="other-issue"></textarea>
+        </div>
+          <button type="submit">Submit</button>   
+      </form>
+    </div>
     )
   }
 }
