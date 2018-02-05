@@ -4,10 +4,30 @@ import {required, nonEmpty, length, number} from '../validators';
 import Input from './input';
 
 
+
 export class DeliveryForm extends React.Component {
   
   onSubmit(values){
-    console.log(values);
+    //add API call here
+    const URL="https://us-central1-delivery-form-api.cloudfunctions.net/api/report"
+    const postData = {
+      "trackingNumber": "12344",        // This should be a string - leading zeros are allowed
+      "issue": "not-delivered",         // One of "not-delivered", "wrong-item", "missing-part", "damaged", or "other"
+      "details": "It wasn't delivered"  // Optional
+  };
+    return fetch(URL, {
+      method: 'POST',
+      body: JSON.stringify(postData),
+    })
+    .then( res => {   //catches promise from fetch
+        return res.json();
+    })
+    .then( res => {   //catches promise from the return res.json
+      return  console.log(this.props.form.delivery.message);
+    })
+    .catch (err => {  //catches the any errors
+    //  return Promise.reject( new SubmissionForm..asmdf.amf)
+    })
   }
 
   render() {
