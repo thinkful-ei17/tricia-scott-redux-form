@@ -3,7 +3,7 @@ import {SubmissionError} from 'redux-form';
 
 const fetchCall = values => {
     console.log('values in fetch call:', values);
-    debugger
+    // debugger
     const URL="https://us-central1-delivery-form-api.cloudfunctions.net/api/report"
     const postData = {
         "trackingNumber": values.trackingNumber,        // This should be a string - leading zeros are allowed
@@ -23,7 +23,7 @@ const fetchCall = values => {
 
 
 export const makePost = values => dispatch => {
-    debugger
+    // debugger
     return fetchCall(values)
     .then(res => {
         if(!res.ok){
@@ -44,7 +44,7 @@ export const makePost = values => dispatch => {
         return res.json();
     })
     .then(res => res)
-    .catch(error => { //console.error(error));
+    .catch(error => { 
         if (error.reason === 'ValidationError') {
             return Promise.reject(
                 new SubmissionError({
@@ -52,10 +52,11 @@ export const makePost = values => dispatch => {
                 })
             );
         }
+        return Promise.reject(
+            new SubmissionError({
+                _error: "Your form could not submit at this time."
+            })
+        );       
     });
-        // return Promise.reject(
-        //     new SubmissionError({
-        //         _error: "Your form could not submit at this time."
-        //     })
-        // );       
 }
+
