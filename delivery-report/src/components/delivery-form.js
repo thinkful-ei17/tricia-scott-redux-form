@@ -1,64 +1,66 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
-import {required, nonEmpty, length, number} from '../validators';
+import {required, nonEmpty, length, number, selection} from '../validators';
 import Input from './input';
+import {makePost} from '../actions';
 
 
 
 export class DeliveryForm extends React.Component {
   
   onSubmit(values){
-    console.log('values on submit:', values);
-    //add API call here
-    const URL="https://us-central1-delivery-form-api.cloudfunctions.net/api/report"
-    const postData = {
-      "trackingNumber": "12344",        // This should be a string - leading zeros are allowed
-      "issue": "not-delivered",         // One of "not-delivered", "wrong-item", "missing-part", "damaged", or "other"
-      "details": "It wasn't delivered"  // Optional
-  };
-    return fetch(URL, {
-      method: 'POST',
-      body: JSON.stringify(postData),
-    })
-    .then( res => {   //catches promise from fetch
-        return res.json();
-    })
-    .then( res => {   //catches promise from the return res.json
-      console.log('response:', res);
-    })
-    .catch (err => {  //catches the any errors
-    //  return Promise.reject( new SubmissionForm..asmdf.amf)
-    })
+    return this.props.dispatch(makePost(values));
   }
 
   render() {
-    return(
-    <div className="delivery-form">
-     <h2>Report a problem with your delivery</h2>
-      <form
-        onSubmit={this.props.handleSubmit(values =>
-          this.onSubmit(values)
-      )}>
+    // debugger
+    let errorMessage;
+    if (this.props.error){
+      errorMessage = <div>{this.props.error}</div>
+    }
+
+    let successMessage;
+    if (this.props.submitSucceeded) {
+      successMessage = <div>Your report was Successfully Submitted.</div>;
+    }
+
+    return (
+      <div className="delivery-form">
+        
+        <h2>Report a problem with your delivery</h2>
+
+        <form
+          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))
+        }>
+
+        {successMessage}
+        {errorMessage}
+
         <div className='form-input'>
-          <label htmlFor="tracking-num">Tracking number</label>
+          <label htmlFor="trackingNumber">Tracking number</label>
           <Field 
             component={Input} 
+            element='input'
             type="text" 
-            name='tracking-num' 
-            id='tracking-num' 
-            validate={[required, nonEmpty, length, number]}/>
+            name='trackingNumber' 
+            id='trackingNumber' 
+            validate={[required, nonEmpty, length, number]}
+          />
         </div>
+
         <div className='form-input'>
           <label htmlFor='delivery-issue-list'>What is your issue?</label>
            <Field 
-           component='select'
-           id="delivery-issue-list" 
-           name='delivery-issue-list'>
-              <option value="My delivery hasn't arrived">My delivery hasn't arrived</option>
-              <option value="The wrong item was deliverd">The wrong item was deliverd</option>
-              <option value="Part of my order was missing">Part of my order was missing</option>
-              <option value="Some of my order arrived damaged">Some of my order arrived damaged</option>
-              <option value="Other (give details below)">Other (give details below)</option>
+            component={Input}
+            element='select'
+            id="delivery-issue-list" 
+            name='delivery-issue-list'
+            validate={[selection]}>
+              <option value="not-delivered" default>My delivery hasn't arrived</option>
+              <option value="wrong-item">The wrong item was deliverd</option>
+              <option value="missing-part">Part of my order was missing</option>
+              <option value="damaged">Some of my order arrived damaged</option>
+              <option value="other">Other (give details below)</option>
             </Field>
             </div>
         <div className='form-input'>
